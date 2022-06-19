@@ -34,12 +34,12 @@ class TrashManager:
                 logging.warning("{} not exists.".format(source))
                 continue
 
-            target = RM2TRASH_TRASH_PATH / source.name
-            if target.is_symlink():
-                logging.info("Unlink {} -> {}.".format(target, target.readlink()))
-                target.unlink()
+            if source.is_symlink():
+                logging.info("Unlink {} -> {}.".format(source, source.readlink()))
+                source.unlink()
                 continue
 
+            target = RM2TRASH_TRASH_PATH / source.name
             suffix_int = 1
             while target.exists():
                 target = RM2TRASH_TRASH_PATH / "{}.{}".format(source.name, suffix_int)
